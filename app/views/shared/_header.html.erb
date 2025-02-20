@@ -1,31 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark navbar-dark text-danger">
   <div class="container-fluid">
-    <a class="navbar-brand text-danger" href="#">Navbar</a>
+    <%= link_to "Dev community", root_path, class: "navbar-brand text-danger" %>
     <button class="navbar-toggler text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon text-danger"></span>
     </button>
     <div class="collapse navbar-collapse text-danger" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active text-danger" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item text-danger">
-          <a class="nav-link text-danger" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-danger" href="#">Action</a></li>
-            <li><a class="dropdown-item text-danger" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider text-danger"></li>
-            <li><a class="dropdown-item text-danger" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled text-danger" aria-disabled="true">Disabled</a>
-        </li>
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "My profile", member_path(current_user), class: "nav-link active text-danger" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "nav-link active text-danger" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign iin", new_user_session_path, class: "nav-link active text-danger" %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </div>
